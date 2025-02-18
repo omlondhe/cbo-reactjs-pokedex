@@ -1,4 +1,4 @@
-import { capitalize } from "../../utils/common";
+import { capitalize } from "../../../utils/common";
 import PokemonCardShimmer from "../PokemonCardShimmer";
 
 import useFetchPokemonData from "./hooks/useFetchPokemonData";

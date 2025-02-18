@@ -1,8 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
-import PokemonList from "./PokemonList";
+import Pokemon from "./pages/Pokemon";
+import PokemonList from "./pages/PokemonList";
 
 function App() {
-	return <PokemonList />;
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<PokemonList />} />
+				<Route path="/pokemon/:id" element={<Pokemon />} />
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
