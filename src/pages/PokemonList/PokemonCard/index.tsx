@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { capitalize } from "../../../utils/common";
 import PokemonCardShimmer from "../PokemonCardShimmer";
 
@@ -11,7 +12,10 @@ const PokemonCard = ({ url }: PokemonCardProps) => {
 	return isLoading ? (
 		<PokemonCardShimmer />
 	) : (
-		<section className="relative bg-gray-50 cursor-pointer flex-none overflow-hidden rounded-lg h-fit border border-gray-300 w-96 group">
+		<Link
+			to={`/pokemon/${id}`}
+			className="relative bg-gray-50 cursor-pointer flex-none overflow-hidden rounded-lg h-fit border border-gray-300 w-96 group"
+		>
 			<img
 				alt={name}
 				src={sprites?.front_shiny}
@@ -50,7 +54,7 @@ const PokemonCard = ({ url }: PokemonCardProps) => {
 					</div>
 				</div>
 			</footer>
-		</section>
+		</Link>
 	);
 };
 
