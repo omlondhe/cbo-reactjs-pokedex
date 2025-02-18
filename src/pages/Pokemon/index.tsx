@@ -3,9 +3,8 @@ import useFetchPokemonData from "./hooks/useFetchPokemonData";
 
 const Pokemon = () => {
 	const { id } = useParams();
-	const { data, isLoading } = useFetchPokemonData(id ?? "1");
-
-	return <div>Pokemon</div>;
+	const { data } = useFetchPokemonData(id ?? "1");
+	return <div></div>;
 };
 
 export default Pokemon;
