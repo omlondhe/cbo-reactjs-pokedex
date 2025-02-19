@@ -40,3 +40,10 @@ export interface Pokemon {
 	base_experience: number;
 	sprites: PokemonSprites;
 }
+
+export interface PokemonImage {
+	image: string;
+	imageSize: "normal" | "shiny";
+	gender: "male" | "female" | null;
+	imageType: "home" | "official" | "dreamWorld";
+}
