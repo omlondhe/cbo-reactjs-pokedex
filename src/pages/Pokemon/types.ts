@@ -45,5 +45,5 @@ export interface PokemonImage {
 	image: string;
 	imageSize: "normal" | "shiny";
 	gender: "male" | "female" | null;
-	imageType: "home" | "official" | "dreamWorld";
+	imageType: "home" | "official" | "dream";
 }

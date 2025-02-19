@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import clsx from "clsx";
+import { capitalize } from "../../utils/common";
 
 const Pokemon = () => {
 	console.log("Pokemon");
@@ -48,12 +49,31 @@ const Pokemon = () => {
 							<ArrowBackIosNewRoundedIcon className="h-4 w-4 text-gray-900" />
 							&nbsp;
 						</Button>
-						<div className="relative h-full min-w-96 p-5 border bg-white/20 border-white/75 rounded-md flex-1">
-							<img
-								src={image.image}
-								alt={image.imageType}
-								className="w-full h-full object-contain drop-shadow-lg"
-							/>
+						<div className="flex flex-col relative h-96 gap-7 min-w-96 p-5 border bg-white/20 border-white/75 rounded-md flex-1">
+							<div className="flex-1 h-80">
+								<img
+									src={image.image}
+									alt={image.imageType}
+									className="w-full h-full object-contain drop-shadow-lg"
+								/>
+							</div>
+							<div className="flex items-center gap-3 w-fit mx-auto bg-white border border-white/75 px-2 justify-center rounded-md text-base font-medium text-gray-900">
+								{image.imageType && (
+									<p>{capitalize(image.imageType)}</p>
+								)}
+								{image.imageSize && (
+									<>
+										<div className="w-1 h-1 rounded-full bg-gray-900" />
+										<p>{capitalize(image.imageSize)}</p>
+									</>
+								)}
+								{image.gender && (
+									<>
+										<div className="w-1 h-1 rounded-full bg-gray-900" />
+										<p>{capitalize(image.gender)}</p>
+									</>
+								)}
+							</div>
 						</div>
 						<Button
 							fullHeight={true}

@@ -17,6 +17,24 @@ export const getPokemonImages = (pokemon: Pokemon | undefined) => {
 	const dreamWorldImages = sprites.other.dream_world;
 	const officialImages = sprites.other["official-artwork"];
 
+	if (dreamWorldImages.front_default) {
+		images.push({
+			image: dreamWorldImages.front_default,
+			imageType: "dream",
+			imageSize: "normal",
+			gender: "male",
+		});
+	}
+
+	if (dreamWorldImages.front_female) {
+		images.push({
+			image: dreamWorldImages.front_female,
+			imageType: "dream",
+			imageSize: "normal",
+			gender: "female",
+		});
+	}
+
 	if (officialImages.front_default) {
 		images.push({
 			image: officialImages.front_default,
@@ -32,24 +50,6 @@ export const getPokemonImages = (pokemon: Pokemon | undefined) => {
 			imageType: "official",
 			imageSize: "shiny",
 			gender: null,
-		});
-	}
-
-	if (dreamWorldImages.front_default) {
-		images.push({
-			image: dreamWorldImages.front_default,
-			imageType: "dreamWorld",
-			imageSize: "normal",
-			gender: "male",
-		});
-	}
-
-	if (dreamWorldImages.front_female) {
-		images.push({
-			image: dreamWorldImages.front_female,
-			imageType: "dreamWorld",
-			imageSize: "normal",
-			gender: "female",
 		});
 	}
 
