@@ -5,6 +5,8 @@ const useFetchPaginatedPokemon = (url: string) => {
 	return useQuery({
 		queryKey: ["pokemon-list", url],
 		queryFn: () => fetchPaginatedPokemon(url),
+		staleTime: Infinity,
+		refetchOnWindowFocus: false,
 	});
 };
 
