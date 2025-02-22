@@ -6,7 +6,7 @@ import useFetchPaginatedPokemon from "./hooks/useFetchPaginatedPokemon";
 
 const PokemonList = () => {
 	const [url, setUrl] = useState<string>(POKEMON_LIST_DEFAULT_URL);
-	const { data } = useFetchPaginatedPokemon(url);
+	const { data, isLoading } = useFetchPaginatedPokemon(url);
 
 	const handleUpdateUrl = (url: string) => {
 		setUrl(url);
@@ -15,6 +15,7 @@ const PokemonList = () => {
 	return (
 		<section>
 			<Header
+				isLoading={isLoading}
 				nextUrl={data?.next ?? null}
 				previousUrl={data?.previous ?? null}
 				handleUpdateUrl={handleUpdateUrl}
