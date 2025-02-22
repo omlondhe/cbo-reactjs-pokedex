@@ -1,14 +1,17 @@
 import { Link } from "react-router";
 import { capitalize } from "../../../utils/common";
+import useFetchPokemonData from "../../Pokemon/hooks/useFetchPokemonData";
+import { getPokemonImages } from "../../Pokemon/utils";
 import PokemonCardShimmer from "../PokemonCardShimmer";
 
 import { PokemonCardProps } from "./types";
-import useFetchPokemonData from "../../Pokemon/hooks/useFetchPokemonData";
+import { POKEBALL } from "./constants";
 
 const PokemonCard = ({ url }: PokemonCardProps) => {
 	const id = url.slice(0, -1).split("/").pop();
 	const { data, isLoading } = useFetchPokemonData(id ?? "1");
-	const { name, base_experience, height, weight, sprites } = data ?? {};
+	const { name, base_experience, height, weight } = data ?? {};
+	const images = getPokemonImages(data);
 
 	return isLoading ? (
 		<PokemonCardShimmer />
@@ -19,13 +22,13 @@ const PokemonCard = ({ url }: PokemonCardProps) => {
 		>
 			<img
 				alt={name}
-				src={sprites?.other.dream_world.front_default}
+				src={images[0]?.image ?? POKEBALL}
 				className="w-full blur-sm h-full object-cover opacity-0 group-hover:opacity-15 absolute top-0 left-0 scale-200 z-0 transition-all duration-500"
 			/>
 			<header className="p-2 h-60 group-hover:p-0 transition-all duration-500 relative">
 				<img
 					alt={name}
-					src={sprites?.other.dream_world.front_default}
+					src={images[0]?.image ?? POKEBALL}
 					className="p-5 w-full h-full object-contain border border-gray-300 bg-white group-hover:bg-transparent group-hover:rounded-none rounded-lg group-hover:border-transparent transition-all duration-500"
 				/>
 			</header>
