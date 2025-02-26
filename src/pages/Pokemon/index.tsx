@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useFetchPokemonData from "./hooks/useFetchPokemonData";
 import { getPokemonImages } from "./utils";
 import { useState } from "react";
@@ -7,9 +7,10 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import clsx from "clsx";
 import { capitalize } from "../../utils/common";
+import { IconButton } from "@mui/material";
 
 const Pokemon = () => {
-	console.log("Pokemon");
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const { data: pokemon, isLoading } = useFetchPokemonData(id ?? "1");
 
@@ -18,37 +19,55 @@ const Pokemon = () => {
 	const image = images[selectedImageIndex];
 
 	return (
-		<section className="flex gap-5">
+		<section className="flex flex-col gap-5 max-w-screen overflow-x-hidden">
 			{image && (
 				<img
 					src={image.image}
 					alt={image.imageType}
-					className="max-w-screen w-full h-full object-cover absolute top-0 left-0 opacity-30 scale-150 -z-10 blur-2xl"
+					className="max-w-screen w-full h-full object-cover absolute top-0 left-0 opacity-30 scale-100 -z-10 blur-2xl"
 				/>
 			)}
-			<header
+			<header className="flex items-center justify-between border bg-white/20 border-white/75 rounded-md p-5">
+				<IconButton onClick={() => navigate(-1)}>
+					<ArrowBackIosNewRoundedIcon className="h-4 w-4 text-gray-900" />
+				</IconButton>
+				<h1 className="text-5xl font-extrabold text-gray-900">
+					{capitalize(pokemon?.name ?? "")}
+				</h1>
+				<div className="bg-black p-2 rounded-full">
+					<h2 className="text-2xl font-bold text-white">
+						#{pokemon?.order}
+					</h2>
+				</div>
+			</header>
+
+			<section
 				className={clsx(
-					"flex items-center max-w-screen gap-5 w-full",
+					"flex max-w-screen gap-5 w-full relative",
 					isLoading &&
 						"bg-gray-100 animate-pulse border border-gray-300"
 				)}
 			>
 				{images.length > 0 && (
 					<>
-						<Button
-							fullHeight={true}
-							variant="transparent"
-							onClick={() =>
-								setSelectedImageIndex(
-									(selectedImageIndex - 1 + images.length) %
-										images.length
-								)
-							}
-						>
-							&nbsp;
-							<ArrowBackIosNewRoundedIcon className="h-4 w-4 text-gray-900" />
-							&nbsp;
-						</Button>
+						<div className="border bg-white/20 border-white/75 rounded-md self-stretch flex">
+							<Button
+								fullHeight={true}
+								variant="transparent"
+								onClick={() =>
+									setSelectedImageIndex(
+										(selectedImageIndex -
+											1 +
+											images.length) %
+											images.length
+									)
+								}
+							>
+								&nbsp;
+								<ArrowBackIosNewRoundedIcon className="h-4 w-4 text-gray-900" />
+								&nbsp;
+							</Button>
+						</div>
 						<div className="flex flex-col relative min-w-96 gap-2.5 p-5 border bg-white/20 border-white/75 rounded-md flex-1">
 							<div className="h-96">
 								<img
@@ -107,22 +126,24 @@ const Pokemon = () => {
 								</div>
 							)}
 						</div>
-						<Button
-							fullHeight={true}
-							variant="transparent"
-							onClick={() =>
-								setSelectedImageIndex(
-									(selectedImageIndex + 1) % images.length
-								)
-							}
-						>
-							&nbsp;
-							<ArrowForwardIosRoundedIcon className="h-4 w-4 text-gray-900" />
-							&nbsp;
-						</Button>
+						<div className="border bg-white/20 border-white/75 rounded-md self-stretch flex">
+							<Button
+								fullHeight={true}
+								variant="transparent"
+								onClick={() =>
+									setSelectedImageIndex(
+										(selectedImageIndex + 1) % images.length
+									)
+								}
+							>
+								&nbsp;
+								<ArrowForwardIosRoundedIcon className="h-4 w-4 text-gray-900" />
+								&nbsp;
+							</Button>
+						</div>
 					</>
 				)}
-			</header>
+			</section>
 		</section>
 	);
 };
