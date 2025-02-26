@@ -27,7 +27,7 @@ const Pokemon = () => {
 					className="max-w-screen w-full h-full object-cover absolute top-0 left-0 opacity-30 scale-100 -z-10 blur-2xl"
 				/>
 			)}
-			<header className="flex items-center justify-between border bg-white/20 border-white/75 rounded-md p-5">
+			<header className="flex items-center justify-between border bg-white/20 border-white rounded-md p-5">
 				<IconButton onClick={() => navigate(-1)}>
 					<ArrowBackIosNewRoundedIcon className="h-4 w-4 text-gray-900" />
 				</IconButton>
@@ -50,7 +50,7 @@ const Pokemon = () => {
 			>
 				{images.length > 0 && (
 					<>
-						<div className="border bg-white/20 border-white/75 rounded-md self-stretch flex">
+						<div className="border bg-white/20 border-white rounded-md self-stretch flex">
 							<Button
 								fullHeight={true}
 								variant="transparent"
@@ -126,7 +126,7 @@ const Pokemon = () => {
 								</div>
 							)}
 						</div>
-						<div className="border bg-white/20 border-white/75 rounded-md self-stretch flex">
+						<div className="border bg-white/20 border-white rounded-md self-stretch flex">
 							<Button
 								fullHeight={true}
 								variant="transparent"
@@ -144,6 +144,60 @@ const Pokemon = () => {
 					</>
 				)}
 			</section>
+
+			<footer className="flex gap-5">
+				<section className="flex-1 bg-white/20 border-white border rounded-md p-5">
+					<div className="flex items-center justify-between gap-2">
+						<p className="text-lg font-medium text-gray-900">
+							Type
+						</p>
+						<p className="text-lg font-medium text-gray-900">
+							{pokemon?.types
+								.map((type) => capitalize(type.type.name))
+								.join(", ")}
+						</p>
+					</div>
+					<div className="flex items-center justify-between gap-2">
+						<p className="text-lg font-medium text-gray-900">
+							Experience
+						</p>
+						<p className="text-lg font-medium text-gray-900">
+							{pokemon?.base_experience}
+						</p>
+					</div>
+					<div className="flex items-center justify-between gap-2">
+						<p className="text-lg font-medium text-gray-900">
+							Height
+						</p>
+						<p className="text-lg font-medium text-gray-900">
+							{pokemon?.height}
+						</p>
+					</div>
+					<div className="flex items-center justify-between gap-2">
+						<p className="text-lg font-medium text-gray-900">
+							Weight
+						</p>
+						<p className="text-lg font-medium text-gray-900">
+							{pokemon?.weight}
+						</p>
+					</div>
+				</section>
+				<section className="flex-1 bg-white/20 border-white border rounded-md p-5">
+					{pokemon?.stats.map((stat) => (
+						<div className="flex items-center justify-between gap-2">
+							<p className="text-lg font-medium text-gray-900">
+								{capitalize(stat.stat.name.replace("-", " "))}
+							</p>
+							<p className="text-lg font-medium text-gray-900">
+								{stat.base_stat}
+								<sup>
+									{stat.effort ? `+${stat.effort}` : ""}
+								</sup>
+							</p>
+						</div>
+					))}
+				</section>
+			</footer>
 		</section>
 	);
 };
