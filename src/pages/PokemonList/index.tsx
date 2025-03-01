@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { usePokemonListUrl } from "../../context/PokemonListContext/hooks";
+import { PokemonListContextActionType } from "../../context/PokemonListContext/types";
 import Header from "./Header";
 import PokemonCard from "./PokemonCard";
-import { POKEMON_LIST_DEFAULT_URL } from "./constants";
 import useFetchPaginatedPokemon from "./hooks/useFetchPaginatedPokemon";
 
 const PokemonList = () => {
-	const [url, setUrl] = useState<string>(POKEMON_LIST_DEFAULT_URL);
+	const [{ url }, dispatch] = usePokemonListUrl();
 	const { data, isLoading } = useFetchPaginatedPokemon(url);
 
 	const handleUpdateUrl = (url: string) => {
-		setUrl(url);
+		dispatch({
+			url,
+			type: PokemonListContextActionType.SET_URL,
+		});
 	};
 
 	return (

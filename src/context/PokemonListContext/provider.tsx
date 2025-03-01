@@ -7,10 +7,10 @@ export const PokemonListContextProvider: FC<PropsWithChildren> = ({
 	children,
 }) => {
 	return (
-		<PokemonListContext
+		<PokemonListContext.Provider
 			value={useReducer(pokemonListReducer, POKEMON_LIST_INITIAL_STATE)}
 		>
 			{children}
-		</PokemonListContext>
+		</PokemonListContext.Provider>
 	);
 };
