@@ -8,6 +8,7 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import clsx from "clsx";
 import { capitalize } from "../../utils/common";
 import { IconButton } from "@mui/material";
+import Chip from "../../components/Chip";
 
 const Pokemon = () => {
 	const navigate = useNavigate();
@@ -151,11 +152,14 @@ const Pokemon = () => {
 						<p className="text-lg font-medium text-gray-900">
 							Type
 						</p>
-						<p className="text-lg font-medium text-gray-900">
-							{pokemon?.types
-								.map((type) => capitalize(type.type.name))
-								.join(", ")}
-						</p>
+						<div className="text-base font-medium text-gray-900 flex items-center gap-2">
+							{pokemon?.types.map((type) => (
+								<Chip
+									key={type.type.name}
+									label={capitalize(type.type.name)}
+								/>
+							))}
+						</div>
 					</div>
 					<div className="flex items-center justify-between gap-2">
 						<p className="text-lg font-medium text-gray-900">
