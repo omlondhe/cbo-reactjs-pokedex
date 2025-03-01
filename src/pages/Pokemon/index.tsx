@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { capitalize } from "../../utils/common";
 import { IconButton } from "@mui/material";
 import Chip from "../../components/Chip";
+import { ChipVariant } from "../../components/Chip/types";
 
 const Pokemon = () => {
 	const navigate = useNavigate();
@@ -156,6 +157,7 @@ const Pokemon = () => {
 							{pokemon?.types.map((type) => (
 								<Chip
 									key={type.type.name}
+									variant={type.type.name as ChipVariant}
 									label={capitalize(type.type.name)}
 								/>
 							))}

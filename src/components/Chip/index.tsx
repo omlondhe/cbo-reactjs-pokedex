@@ -1,8 +1,15 @@
+import clsx from "clsx";
 import type { ChipProps } from "./types";
+import { CHIP_VARIANTS } from "./constants";
 
-const Chip = ({ label }: ChipProps) => {
+const Chip = ({ label, variant = "normal" }: ChipProps) => {
 	return (
-		<div className="border border-white rounded-full px-2.5 py-0.5 bg-white">
+		<div
+			className={clsx(
+				"rounded-full px-2.5 py-0.5",
+				CHIP_VARIANTS[variant]
+			)}
+		>
 			<p>{label}</p>
 		</div>
 	);
