@@ -6,10 +6,18 @@ import { pokemonListReducer } from "./reducer";
 export const PokemonListContextProvider: FC<PropsWithChildren> = ({
 	children,
 }) => {
+	const [state, dispatch] = useReducer(
+		pokemonListReducer,
+		POKEMON_LIST_INITIAL_STATE
+	);
+
+	const contextProviderValue = {
+		state,
+		dispatch,
+	};
+
 	return (
-		<PokemonListContext.Provider
-			value={useReducer(pokemonListReducer, POKEMON_LIST_INITIAL_STATE)}
-		>
+		<PokemonListContext.Provider value={contextProviderValue}>
 			{children}
 		</PokemonListContext.Provider>
 	);

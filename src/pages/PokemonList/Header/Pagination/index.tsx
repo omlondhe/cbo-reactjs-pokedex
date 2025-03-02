@@ -5,7 +5,7 @@ import { PokemonListContextActionType } from "../../../../context/PokemonListCon
 import type { PaginationProps } from "./types";
 
 const Pagination = ({ nextUrl, isLoading, previousUrl }: PaginationProps) => {
-	const [, dispatch] = usePokemonListUrl();
+	const { dispatch } = usePokemonListUrl();
 
 	const handleUpdateUrl = (url: string) => {
 		dispatch({

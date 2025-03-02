@@ -4,7 +4,8 @@ import { usePokemonListUrl } from "../../../context/PokemonListContext/hooks";
 import { fetchPaginatedPokemon } from "../utils";
 
 const useFetchPaginatedPokemon = () => {
-	const [{ url }] = usePokemonListUrl();
+	const { state } = usePokemonListUrl();
+	const { url } = state;
 
 	return useQuery({
 		queryKey: ["pokemon-list", url],

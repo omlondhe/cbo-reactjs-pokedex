@@ -13,7 +13,7 @@ export interface PokemonListContextAction {
 	type: PokemonListContextActionType;
 }
 
-export type PokemonListContextDefaultValue = [
-	PokemonListContextType,
-	Dispatch<PokemonListContextAction>
-];
+export interface PokemonListContextDefaultValue {
+	state: PokemonListContextType;
+	dispatch: Dispatch<PokemonListContextAction>;
+}
