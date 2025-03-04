@@ -10,6 +10,7 @@ import { capitalize } from "../../utils/common";
 import { IconButton } from "@mui/material";
 import Chip from "../../components/Chip";
 import { ChipVariant } from "../../components/Chip/types";
+import InfoRow from "./InfoRow";
 
 const Pokemon = () => {
 	const navigate = useNavigate();
@@ -149,58 +150,41 @@ const Pokemon = () => {
 
 			<footer className="flex gap-5">
 				<section className="flex-1 bg-white/20 border-white border rounded-md p-5">
-					<div className="flex items-center justify-between gap-2">
-						<p className="text-lg font-medium text-gray-900">
-							Type
-						</p>
-						<div className="text-base font-medium text-gray-900 flex items-center gap-2">
-							{pokemon?.types.map((type) => (
-								<Chip
-									key={type.type.name}
-									variant={type.type.name as ChipVariant}
-									label={capitalize(type.type.name)}
-								/>
-							))}
-						</div>
-					</div>
-					<div className="flex items-center justify-between gap-2">
-						<p className="text-lg font-medium text-gray-900">
-							Experience
-						</p>
-						<p className="text-lg font-medium text-gray-900">
-							{pokemon?.base_experience}
-						</p>
-					</div>
-					<div className="flex items-center justify-between gap-2">
-						<p className="text-lg font-medium text-gray-900">
-							Height
-						</p>
-						<p className="text-lg font-medium text-gray-900">
-							{pokemon?.height}
-						</p>
-					</div>
-					<div className="flex items-center justify-between gap-2">
-						<p className="text-lg font-medium text-gray-900">
-							Weight
-						</p>
-						<p className="text-lg font-medium text-gray-900">
-							{pokemon?.weight}
-						</p>
-					</div>
+					<InfoRow
+						label="Type"
+						children={
+							<div className="text-base font-medium text-gray-900 flex items-center gap-2">
+								{pokemon?.types.map((type) => (
+									<Chip
+										key={type.type.name}
+										variant={type.type.name as ChipVariant}
+										label={capitalize(type.type.name)}
+									/>
+								))}
+							</div>
+						}
+					/>
+					<InfoRow
+						label="Experience"
+						value={pokemon?.base_experience}
+					/>
+					<InfoRow label="Height" value={pokemon?.height} />
+					<InfoRow label="Weight" value={pokemon?.weight} />
 				</section>
 				<section className="flex-1 bg-white/20 border-white border rounded-md p-5">
 					{pokemon?.stats.map((stat) => (
-						<div className="flex items-center justify-between gap-2">
-							<p className="text-lg font-medium text-gray-900">
-								{capitalize(stat.stat.name.replace("-", " "))}
-							</p>
-							<p className="text-lg font-medium text-gray-900">
-								{stat.base_stat}
-								<sup>
-									{stat.effort ? `+${stat.effort}` : ""}
-								</sup>
-							</p>
-						</div>
+						<InfoRow
+							key={stat.stat.name}
+							label={capitalize(stat.stat.name.replace("-", " "))}
+							children={
+								<span className="flex items-center gap-1">
+									{stat.base_stat}
+									<sup>
+										{stat.effort ? `+${stat.effort}` : ""}
+									</sup>
+								</span>
+							}
+						/>
 					))}
 				</section>
 			</footer>
