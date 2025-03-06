@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import useFetchPokemonData from "./hooks/useFetchPokemonData";
 import { getPokemonImages } from "./utils";
 import { useState } from "react";
@@ -7,13 +7,13 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import clsx from "clsx";
 import { capitalize } from "../../utils/common";
-import { IconButton } from "@mui/material";
+
 import Chip from "../../components/Chip";
 import { ChipVariant } from "../../components/Chip/types";
 import InfoRow from "./InfoRow";
+import Header from "./Header";
 
 const Pokemon = () => {
-	const navigate = useNavigate();
 	const { id } = useParams();
 	const { data: pokemon, isLoading } = useFetchPokemonData(id ?? "1");
 
@@ -30,19 +30,8 @@ const Pokemon = () => {
 					className="max-w-screen w-full h-full object-cover absolute top-0 left-0 opacity-30 scale-100 -z-10 blur-2xl"
 				/>
 			)}
-			<header className="flex items-center justify-between border bg-white/20 border-white rounded-md p-5">
-				<IconButton onClick={() => navigate(-1)}>
-					<ArrowBackIosNewRoundedIcon className="h-4 w-4 text-gray-900" />
-				</IconButton>
-				<h1 className="text-5xl font-extrabold text-gray-900">
-					{capitalize(pokemon?.name ?? "")}
-				</h1>
-				<div className="bg-black p-2 rounded-full">
-					<h2 className="text-2xl font-bold text-white">
-						#{pokemon?.order}
-					</h2>
-				</div>
-			</header>
+
+			<Header name={pokemon?.name ?? ""} order={pokemon?.order ?? 0} />
 
 			<section
 				className={clsx(
