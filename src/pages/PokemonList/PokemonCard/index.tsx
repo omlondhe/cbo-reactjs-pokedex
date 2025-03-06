@@ -11,7 +11,7 @@ import Footer from "./Footer";
 const PokemonCard = ({ url }: PokemonCardProps) => {
 	const id = url.slice(0, -1).split("/").pop();
 	const { data, isLoading } = useFetchPokemonData(id ?? "1");
-	const images = getPokemonImages(data);
+	const images = getPokemonImages(data?.sprites);
 
 	return isLoading ? (
 		<PokemonCardShimmer />

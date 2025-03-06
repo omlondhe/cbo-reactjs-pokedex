@@ -1,15 +1,13 @@
 import { fetchPokemonDataService } from "./services";
-import type { Pokemon, PokemonImage } from "./types";
+import type { PokemonImage, PokemonSprites } from "./types";
 
 export const fetchPokemonData = async (id: string) => {
 	const response = await fetchPokemonDataService(id);
 	return response.data;
 };
 
-export const getPokemonImages = (pokemon: Pokemon | undefined) => {
-	if (!pokemon) return [];
-
-	const { sprites } = pokemon;
+export const getPokemonImages = (sprites: PokemonSprites | undefined) => {
+	if (!sprites) return [];
 
 	const images: PokemonImage[] = [];
 
