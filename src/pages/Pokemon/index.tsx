@@ -8,10 +8,8 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import clsx from "clsx";
 import { capitalize } from "../../utils/common";
 
-import Chip from "../../components/Chip";
-import { ChipVariant } from "../../components/Chip/types";
-import InfoRow from "./InfoRow";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Pokemon = () => {
 	const { id } = useParams();
@@ -137,46 +135,7 @@ const Pokemon = () => {
 				)}
 			</section>
 
-			<footer className="flex gap-5">
-				<section className="flex-1 bg-white/20 border-white border rounded-md p-5">
-					<InfoRow
-						label="Type"
-						children={
-							<div className="text-base font-medium text-gray-900 flex items-center gap-2">
-								{pokemon?.types.map((type) => (
-									<Chip
-										key={type.type.name}
-										variant={type.type.name as ChipVariant}
-										label={capitalize(type.type.name)}
-									/>
-								))}
-							</div>
-						}
-					/>
-					<InfoRow
-						label="Experience"
-						value={pokemon?.base_experience}
-					/>
-					<InfoRow label="Height" value={pokemon?.height} />
-					<InfoRow label="Weight" value={pokemon?.weight} />
-				</section>
-				<section className="flex-1 bg-white/20 border-white border rounded-md p-5">
-					{pokemon?.stats.map((stat) => (
-						<InfoRow
-							key={stat.stat.name}
-							label={capitalize(stat.stat.name.replace("-", " "))}
-							children={
-								<span className="flex items-center gap-1">
-									{stat.base_stat}
-									<sup>
-										{stat.effort ? `+${stat.effort}` : ""}
-									</sup>
-								</span>
-							}
-						/>
-					))}
-				</section>
-			</footer>
+			{pokemon && <Footer pokemon={pokemon} />}
 		</section>
 	);
 };
