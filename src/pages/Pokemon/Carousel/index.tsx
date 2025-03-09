@@ -2,15 +2,25 @@ import clsx from "clsx";
 import { getPokemonImages } from "../utils";
 import { useState } from "react";
 import type { CarouselProps } from "./types";
-import { capitalize } from "../../../utils/common";
-import Button from "../../../components/Button";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import CarouselButton from "./CarouselButton";
+import ImageInfo from "./ImageInfo";
 
 const Carousel = ({ sprites, isLoading }: CarouselProps) => {
 	const images = getPokemonImages(sprites);
 	const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 	const image = images[selectedImageIndex];
+
+	const onCarouselPreviousClick = () => {
+		setSelectedImageIndex(
+			(selectedImageIndex - 1 + images.length) % images.length
+		);
+	};
+
+	const onCarouselNextClick = () => {
+		setSelectedImageIndex((selectedImageIndex + 1) % images.length);
+	};
 
 	return (
 		<>
@@ -31,24 +41,10 @@ const Carousel = ({ sprites, isLoading }: CarouselProps) => {
 			>
 				{images.length > 0 && (
 					<>
-						<div className="border bg-white/20 border-white rounded-md self-stretch flex">
-							<Button
-								fullHeight={true}
-								variant="transparent"
-								onClick={() =>
-									setSelectedImageIndex(
-										(selectedImageIndex -
-											1 +
-											images.length) %
-											images.length
-									)
-								}
-							>
-								&nbsp;
-								<ArrowBackIosNewRoundedIcon className="h-4 w-4 text-gray-900" />
-								&nbsp;
-							</Button>
-						</div>
+						<CarouselButton
+							icon={<ArrowBackIosNewRoundedIcon />}
+							onClick={onCarouselPreviousClick}
+						/>
 						<div className="flex flex-col relative min-w-96 gap-2.5 p-5 border bg-white/20 border-white/75 rounded-md flex-1">
 							<div className="h-96">
 								<img
@@ -57,23 +53,7 @@ const Carousel = ({ sprites, isLoading }: CarouselProps) => {
 									className="w-full h-full object-contain drop-shadow-lg"
 								/>
 							</div>
-							<div className="flex items-center gap-3 w-fit mx-auto bg-white border border-white/75 px-2 justify-center rounded-md text-base font-medium text-gray-900">
-								{image.imageType && (
-									<p>{capitalize(image.imageType)}</p>
-								)}
-								{image.imageSize && (
-									<>
-										<div className="w-1 h-1 rounded-full bg-gray-900" />
-										<p>{capitalize(image.imageSize)}</p>
-									</>
-								)}
-								{image.gender && (
-									<>
-										<div className="w-1 h-1 rounded-full bg-gray-900" />
-										<p>{capitalize(image.gender)}</p>
-									</>
-								)}
-							</div>
+							<ImageInfo image={image} />
 							{images.length && (
 								<div className="flex items-center gap-2 justify-center w-fit mx-auto">
 									<div className="flex items-center gap-2 h-7 bg-white py-2 px-4 rounded-full">
@@ -107,21 +87,11 @@ const Carousel = ({ sprites, isLoading }: CarouselProps) => {
 								</div>
 							)}
 						</div>
-						<div className="border bg-white/20 border-white rounded-md self-stretch flex">
-							<Button
-								fullHeight={true}
-								variant="transparent"
-								onClick={() =>
-									setSelectedImageIndex(
-										(selectedImageIndex + 1) % images.length
-									)
-								}
-							>
-								&nbsp;
-								<ArrowForwardIosRoundedIcon className="h-4 w-4 text-gray-900" />
-								&nbsp;
-							</Button>
-						</div>
+
+						<CarouselButton
+							icon={<ArrowForwardIosRoundedIcon />}
+							onClick={onCarouselNextClick}
+						/>
 					</>
 				)}
 			</section>
