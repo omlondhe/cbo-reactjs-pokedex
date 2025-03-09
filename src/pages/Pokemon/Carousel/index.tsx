@@ -1,26 +1,21 @@
 import clsx from "clsx";
-import { getPokemonImages } from "../utils";
-import { useState } from "react";
 import type { CarouselProps } from "./types";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import CarouselButton from "./CarouselButton";
 import ImageInfo from "./ImageInfo";
+import CarouselPagination from "./CarouselPagination";
+import useCarouselPagination from "./CarouselPagination/hooks/useCarouselPagination";
 
 const Carousel = ({ sprites, isLoading }: CarouselProps) => {
-	const images = getPokemonImages(sprites);
-	const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
-	const image = images[selectedImageIndex];
-
-	const onCarouselPreviousClick = () => {
-		setSelectedImageIndex(
-			(selectedImageIndex - 1 + images.length) % images.length
-		);
-	};
-
-	const onCarouselNextClick = () => {
-		setSelectedImageIndex((selectedImageIndex + 1) % images.length);
-	};
+	const {
+		image,
+		images,
+		selectedImageIndex,
+		onImageChange,
+		onCarouselNextClick,
+		onCarouselPreviousClick,
+	} = useCarouselPagination(sprites);
 
 	return (
 		<>
@@ -31,7 +26,6 @@ const Carousel = ({ sprites, isLoading }: CarouselProps) => {
 					className="max-w-screen w-full h-full object-cover absolute top-0 left-0 opacity-30 scale-100 -z-10 blur-2xl"
 				/>
 			)}
-
 			<section
 				className={clsx(
 					"flex max-w-screen gap-5 w-full relative",
@@ -54,38 +48,11 @@ const Carousel = ({ sprites, isLoading }: CarouselProps) => {
 								/>
 							</div>
 							<ImageInfo image={image} />
-							{images.length && (
-								<div className="flex items-center gap-2 justify-center w-fit mx-auto">
-									<div className="flex items-center gap-2 h-7 bg-white py-2 px-4 rounded-full">
-										{Array(images.length)
-											.fill(1)
-											.map((_, index) => (
-												<button
-													key={index}
-													onClick={() =>
-														setSelectedImageIndex(
-															index
-														)
-													}
-													className={clsx(
-														"rounded-full transition-all duration-300 cursor-pointer",
-														index ===
-															selectedImageIndex
-															? "bg-black h-3 w-3"
-															: "bg-gray-400 h-2 w-2"
-													)}
-												/>
-											))}
-									</div>
-									<div className="py-2 px-4 h-7 bg-white rounded-full w-fit grid place-items-center">
-										<p className="text-sm font-medium -mt-1">
-											{`${selectedImageIndex + 1} of ${
-												images.length
-											}`}
-										</p>
-									</div>
-								</div>
-							)}
+							<CarouselPagination
+								images={images}
+								selectedImageIndex={selectedImageIndex}
+								onImageChange={onImageChange}
+							/>
 						</div>
 
 						<CarouselButton
